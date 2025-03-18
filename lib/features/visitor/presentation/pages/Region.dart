@@ -1,32 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../getx/regionController.dart';
-import '../widgets/appBar.dart';
-import '../widgets/salesPointItem.dart';
+import '../getx/region_controller.dart';
+import '../widgets/sales_point_item.dart';
 import '../widgets/add_sales_point_modal.dart';
+import '../widgets/base_screen.dart';
+
 class RegionPage extends StatelessWidget {
-  final RegionController controller = Get.put(RegionController());
+  final RegionController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(),
-      body: SingleChildScrollView(
+    return BaseScreen( // ✅ Use BaseScreen instead of Scaffold
+      child: SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(Icons.map, size: 50, color: Colors.green[800]), // آیکون نقشه
+            Icon(Icons.map, size: 50, color: Colors.green[800]),
             SizedBox(height: 10),
             Obx(() => Text(
               controller.regionName.value,
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             )),
-            Obx(() => Text(controller.regionAddress.value,
-                style: TextStyle(fontSize: 14, color: Colors.grey))),
+            Obx(() => Text(
+              controller.regionAddress.value,
+              style: TextStyle(fontSize: 14, color: Colors.grey),
+            )),
             SizedBox(height: 15),
 
-            /// **نمایش نقشه**
+            /// **Map Display**
             Container(
               height: 200,
               width: double.infinity,
@@ -48,7 +50,7 @@ class RegionPage extends StatelessWidget {
             ),
             SizedBox(height: 10),
 
-            /// **لیست نقاط فروش**
+            /// **Sales Points List**
             Obx(() => Column(
               children: controller.salesPoints.map((point) {
                 return SalesPointItem(
@@ -61,7 +63,7 @@ class RegionPage extends StatelessWidget {
 
             SizedBox(height: 10),
 
-            /// **دکمه افزودن نقطه فروش جدید**
+            /// **Add New Sales Point Button**
             ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
@@ -73,7 +75,6 @@ class RegionPage extends StatelessWidget {
               onPressed: () {
                 showAddSalesPointModal(context);
               },
-
               icon: Icon(Icons.add),
               label: Text("افزودن نقطه فروش جدید"),
             ),
@@ -83,4 +84,3 @@ class RegionPage extends StatelessWidget {
     );
   }
 }
-
