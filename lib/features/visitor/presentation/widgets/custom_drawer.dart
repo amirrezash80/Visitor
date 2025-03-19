@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../pages/manage_regions_page.dart';
-
+import '../pages/visit_plan_page.dart';
 class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class CustomDrawer extends StatelessWidget {
                   ),
                   title: Text("ایجاد برنامه ویزیت"),
                   onTap: () {
-                    print("Go to Visit Program Page");
+                    Get.to(()=>VisitPlanPage());
                   },
                 ),
                 ListTile(
