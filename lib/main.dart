@@ -6,7 +6,7 @@ import 'core/theme/appColor.dart';
 import 'core/theme/appTheme.dart';
 import 'features/visitor/presentation/getx/dashboard_controller.dart';
 import 'features/visitor/presentation/getx/region_controller.dart';
-
+import 'core/controllers/screen_controller.dart';
 import 'features/visitor/domain/usecases/get_tasks.dart';
 import 'features/visitor/data/repositories/task_repository_impl.dart';
 
@@ -16,6 +16,7 @@ void main() {
 
   Get.put(DashboardController(getTasksUseCase));  runApp(const MyApp());
   Get.put(RegionController());
+  Get.put(ScreenController());
 }
 
 class MyApp extends StatelessWidget {

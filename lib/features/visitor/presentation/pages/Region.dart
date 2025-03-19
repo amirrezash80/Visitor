@@ -51,15 +51,18 @@ class RegionPage extends StatelessWidget {
             SizedBox(height: 10),
 
             /// **Sales Points List**
-            Obx(() => Column(
-              children: controller.salesPoints.map((point) {
-                return SalesPointItem(
-                  name: point["name"]!,
-                  status: point["status"]!,
-                  statusColor: point["statusColor"]!,
-                );
-              }).toList(),
-            )),
+          Obx(() => Column(
+            children: controller.salesPoints.map((point) {
+              return SalesPointItem(
+                name: point["name"] ?? "",           // ✅ Provide a fallback empty string
+                status: point["status"] ?? "",       // ✅ Provide a fallback empty string
+                statusColor: point["statusColor"] ?? "",  // ✅ Provide a fallback empty string
+              );
+            }).toList(),
+          ),),
+
+
+
 
             SizedBox(height: 10),
 

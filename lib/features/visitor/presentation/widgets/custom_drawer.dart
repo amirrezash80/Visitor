@@ -1,48 +1,80 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../pages/manage_regions_page.dart';
 
 class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// **Header Section**
-          Container(
-            color: Color(0xFF7D9A6D),
-            padding: EdgeInsets.only(top: 50, bottom: 20, left: 20, right: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          SizedBox(
+            height: MediaQuery.sizeOf(context).height * 0.15,
+            width:MediaQuery.sizeOf(context).width ,
+            child: DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.white,
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'منو',
+                    style: TextStyle(
+                      color: Color(0xff6C757D),
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                 TextButton(onPressed:()=> Navigator.pop(context), child: Icon(Icons.close,size: 30,color: Color(0xff6C757D),)
+                  )
+
+                ],
+              ),
+            ),
+          ),
+
+          // Menu Items
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.zero,
               children: [
-                Text(
-                  "منو",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+                ListTile(
+                  leading: Icon(
+                    Icons.map,
+                    color: Color(0xFF7D9A6D),
+                  ),
+                  title: Text("مدیریت نقاط فروش و مناطق بورسی"),
+                  onTap: () {
+                    Get.to(() => ManageRegionsPage());
+                  },
                 ),
-                IconButton(
-                  icon: Icon(Icons.close, color: Colors.white),
-                  onPressed: () => Get.back(),
+                ListTile(
+                  leading: Icon(
+                    Icons.create,
+                    color: Color(0xFF7D9A6D),
+                  ),
+                  title: Text("ایجاد برنامه ویزیت"),
+                  onTap: () {
+                    print("Go to Visit Program Page");
+                  },
+                ),
+                ListTile(
+                  leading: Icon(
+                    Icons.list,
+                    color: Color(0xFF7D9A6D),
+                  ),
+                  title: Text("مرور برنامه‌های ویزیت"),
+                  onTap: () {
+                    print("Go to Visit History Page");
+                  },
                 ),
               ],
             ),
           ),
-          SizedBox(height: 10),
-
-          /// **Menu Items**
-          buildDrawerItem(Icons.store, "مدیریت نقاط فروش و مناطق بورسی", () {}),
-          buildDrawerItem(Icons.assignment, "ایجاد برنامه ویزیت", () {}),
-          buildDrawerItem(Icons.history, "مرور برنامه‌های ویزیت", () {}),
         ],
       ),
-    );
-  }
-
-  /// **Helper function to create drawer items**
-  Widget buildDrawerItem(IconData icon, String title, VoidCallback onTap) {
-    return ListTile(
-      leading: Icon(icon, color: Color(0xFF4B6F50)),
-      title: Text(title, style: TextStyle(fontSize: 16)),
-      onTap: onTap,
     );
   }
 }

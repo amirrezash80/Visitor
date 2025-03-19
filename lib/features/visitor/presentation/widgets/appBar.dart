@@ -20,7 +20,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
             ),
             Text(
-              'شعار یا یک عبارت درباره سامانه',
+              'عبارت درباره سامانه',
               style: TextStyle(color: Color(0xFFF3E5AB), fontSize: 14),
             ),
           ],
