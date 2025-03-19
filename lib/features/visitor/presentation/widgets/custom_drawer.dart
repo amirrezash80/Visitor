@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../pages/manage_regions_page.dart';
 import '../pages/visit_plan_page.dart';
+import '../pages/VisitReviewPage.dart';
+
 class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -67,7 +69,7 @@ class CustomDrawer extends StatelessWidget {
                   ),
                   title: Text("مرور برنامه‌های ویزیت"),
                   onTap: () {
-                    print("Go to Visit History Page");
+                    Get.to(()=>VisitReviewPage());
                   },
                 ),
               ],

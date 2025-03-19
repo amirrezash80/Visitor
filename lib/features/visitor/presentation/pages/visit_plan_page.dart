@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import '../getx/visit_plan_controller.dart';
 import '../widgets/base_screen.dart';
 import '../widgets/visit_filter_modal.dart';
+import '../widgets/persian_date_picker.dart';
+
 class VisitPlanPage extends StatelessWidget {
   final VisitPlanController controller = Get.put(VisitPlanController());
 
@@ -47,8 +49,10 @@ class VisitPlanPage extends StatelessWidget {
   Widget _buildFilters(double screenWidth, double screenHeight) {
     return Column(
       children: [
-        _buildDropdown("تاریخ", controller.selectedDate, ["1403/03/04", "1403/03/05"]),
-        _buildDropdown("استان", controller.selectedProvince, ["تهران", "مشهد"]),
+        PersianDatePicker(
+          label: "تاریخ",
+          selectedDate: controller.selectedDate,
+        ),        _buildDropdown("استان", controller.selectedProvince, ["تهران", "مشهد"]),
         _buildDropdown("انتخاب منطقه بورسی", controller.selectedRegion, ["بنی‌هاشم", "تجریش", "ولیعصر"]),
         _buildDropdown("ویزیتور", controller.selectedVisitor, ["حامد نصری‌نژاد", "میلاد شمایی"]),
         SizedBox(height: screenHeight * 0.02),
