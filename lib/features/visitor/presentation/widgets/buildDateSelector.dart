@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:sepanta/features/visitor/presentation/getx/dashboard_controller.dart';
 
 Widget buildDateSelector() {
-  final HomeController controller = Get.put(HomeController());
-
   return Obx(
         () => Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

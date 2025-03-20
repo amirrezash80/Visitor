@@ -4,6 +4,7 @@ import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 import '../getx/visit_review_controller.dart';
 import '../widgets/base_screen.dart';
 import '../widgets/persian_date_picker.dart';
+import '../widgets/StoreDetailsModal.dart';
 
 class VisitReviewPage extends StatelessWidget {
   final VisitReviewController controller = Get.put(VisitReviewController());
@@ -83,53 +84,65 @@ class VisitReviewPage extends StatelessWidget {
 
   /// **نمایش هر آیتم تایم‌لاین ویزیت**
   Widget _buildVisitTimelineItem(Map<String, dynamic> visit, double screenWidth, double screenHeight) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Column(
-          children: [
-            Icon(Icons.circle, color: Colors.grey, size: 12),
-            Container(width: 2, height: screenHeight * 0.13, color: Colors.grey),
-          ],
-        ),
-        SizedBox(width: 10),
+    return GestureDetector(
+      onTap: () {
+        if (visit.isNotEmpty) {
+          Get.bottomSheet(
+            StoreDetailsModal(storeDetails: visit),
+            isScrollControlled: true,
+          );
+        } else {
+          print("❌ اطلاعات فروشگاه نامعتبر است!");
+        }
+      },
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Column(
+            children: [
+              Icon(Icons.circle, color: Colors.grey, size: 12),
+              Container(width: 2, height: screenHeight * 0.13, color: Colors.grey),
+            ],
+          ),
+          SizedBox(width: 10),
 
-        Expanded(
-          child: Container(
-            padding: EdgeInsets.all(12),
-            margin: EdgeInsets.only(bottom: 8),
-            decoration: BoxDecoration(
-              color: visit["status"] == "عدم ویزیت"
-                  ? Colors.red.shade100
-                  : visit["status"] == "توقف"
-                  ? Colors.orange.shade100
-                  : Colors.green.shade100,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  visit["name"],
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 4),
-                if (visit["status"] == "عدم ویزیت")
-                  Text("عدم ویزیت", style: TextStyle(color: Colors.red, fontSize: 14)),
-                if (visit["status"] != "عدم ویزیت")
-                  Text("${visit["duration"]} دقیقه", style: TextStyle(fontSize: 14, color: Colors.orange)),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: IconButton(
-                    icon: Icon(Icons.chevron_left, color: Colors.grey),
-                    onPressed: () {},
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.all(12),
+              margin: EdgeInsets.only(bottom: 8),
+              decoration: BoxDecoration(
+                color: visit["status"] == "عدم ویزیت"
+                    ? Colors.red.shade100
+                    : visit["status"] == "توقف"
+                    ? Colors.orange.shade100
+                    : Colors.green.shade100,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    visit["name"],
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                ),
-              ],
+                  SizedBox(height: 4),
+                  if (visit["status"] == "عدم ویزیت")
+                    Text("عدم ویزیت", style: TextStyle(color: Colors.red, fontSize: 14)),
+                  if (visit["status"] != "عدم ویزیت")
+                    Text("${visit["duration"]} دقیقه", style: TextStyle(fontSize: 14, color: Colors.orange)),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(
+                      icon: Icon(Icons.chevron_left, color: Colors.grey),
+                      onPressed: () {},
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
