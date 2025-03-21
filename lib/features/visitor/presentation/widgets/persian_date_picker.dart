@@ -24,7 +24,11 @@ class PersianDatePicker extends StatelessWidget {
               builder: (context, child) {
                 return Theme(
                   data: Theme.of(context).copyWith(
-                    primaryColor: AppColors.darkGreen, // Override primary color
+                    primaryColor: AppColors.darkGreen,
+                    // datePickerTheme: DatePickerThemeData(
+                    //   dayBackgroundColor: MaterialStateProperty.all(Colors.green),
+                    //
+                    // )// Override primary color
                     // Add more customization here
                   ),
                   child: child!,

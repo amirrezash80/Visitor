@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../getx/region_controller.dart';
 import '../widgets/base_screen.dart';
 import '../widgets/edit_region_modal.dart';
+import '../pages/StoreProfilePage.dart';
 
 class ManageRegionsPage extends StatelessWidget {
   final RegionController controller = Get.find();
@@ -48,7 +49,7 @@ class ManageRegionsPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ListTile(
-                        title: Text(region["name"]),
+                        title: Text(region["name"]),  // Correct reference
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -75,6 +76,17 @@ class ManageRegionsPage extends StatelessWidget {
                               return ListTile(
                                 title: Text(store),
                                 leading: Icon(Icons.store, color: Colors.green),
+                                onTap: () {
+                                  // Navigate to store profile page
+                                  _showStoreProfile(context, {
+                                    'name': store,
+                                    'location': "Tehran, BN district",  // Add the correct location
+                                    'visitor': 'Sasan Nowruz Zadeh',
+                                    'visitDuration': 15,
+                                    'visitCount': 5,
+                                    'description': "Store description here",
+                                  });
+                                },
                               );
                             }).toList(),
                           ),
@@ -121,5 +133,11 @@ class ManageRegionsPage extends StatelessWidget {
       },
       isScrollControlled: true,
     );
+  }
+
+  // Function to show the store profile modal
+  void _showStoreProfile(BuildContext context, Map<String, dynamic> store) {
+    print(store);
+    Get.to(() => StoreProfilePage(storeDetails: store));
   }
 }
