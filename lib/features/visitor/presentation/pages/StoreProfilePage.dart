@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../widgets/VisitDetailsModal.dart';
+import '../pages/VisitorProfilePage.dart';
+
 class StoreProfilePage extends StatelessWidget {
   final Map<String, dynamic> storeDetails;
 
@@ -75,31 +77,99 @@ class StoreProfilePage extends StatelessWidget {
     );
   }
 
-  // Function to build Visit Information section with a white card
-  Widget _buildVisitInfo(double screenwidth,double screenheight) {
-    return Container(
-      width:screenwidth ,
-    child:
-      Card(
+  // Function to build Visit Information section with 3 separate cards
+  Widget _buildVisitInfo(double screenWidth, double screenHeight) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // **وییزیتور مکرر**
+        _buildVisitorCard(screenWidth),
+
+        SizedBox(height: screenHeight * 0.02),
+
+        // **مجموع زمان ویزیت**
+        _buildVisitDurationCard(),
+
+        SizedBox(height: screenHeight * 0.02),
+
+        // **تعداد دفعات ویزیت**
+        _buildVisitCountCard(),
+      ],
+    );
+  }
+
+  // Visitor card (Clicking it navigates to visitor profile)
+  Widget _buildVisitorCard(double screenWidth) {
+    return GestureDetector(
+      onTap: () {
+        // Navigate to visitor profile page
+        Get.to(() => VisitorProfilePage(
+            visitorDetails: storeDetails['visitorDetails'] ?? {}  // Providing fallback empty map if it's null
+        ));
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        elevation: 5,
+        child: Padding(
+          padding: EdgeInsets.all(screenWidth * 0.04),
+          child: Row(
+            children: [
+              CircleAvatar(
+                radius: 30,
+               // backgroundImage: NetworkImage(storeDetails['visitorAvatar'] ?? 'default_avatar_url'),
+              backgroundColor: Colors.green,
+              ),
+              SizedBox(width: 16),
+              Text(
+                storeDetails['visitor'] ?? 'Visitor Not Available',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Visit Duration card
+  Widget _buildVisitDurationCard() {
+    return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       elevation: 5,
       child: Padding(
         padding: EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Row(
           children: [
-            // Visitor Info
-            Text("ویزیتور: ${storeDetails['visitor'] ?? 'Not Available'}"),
-            SizedBox(height: 8),
-            Text("مدت ویزیت: ${storeDetails['visitDuration'] ?? '0'} ساعت و ${storeDetails['visitDuration'] ?? '0'} دقیقه"),
-            SizedBox(height: 8),
-
-            // Total Visits
-            Text("تعداد دفعات ویزیت: ${storeDetails['visitCount'] ?? '0'} بار"),
+            Icon(Icons.access_time, color: Colors.green),
+            SizedBox(width: 16),
+            Text(
+              "مجموع زمان ویزیت: ${storeDetails['visitDuration'] ?? 'N/A'} ساعت و ${storeDetails['visitDuration'] ?? '0'} دقیقه",
+              style: TextStyle(fontSize: 16),
+            ),
           ],
         ),
       ),
-    ),
+    );
+  }
+
+  // Visit Count card
+  Widget _buildVisitCountCard() {
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      elevation: 5,
+      child: Padding(
+        padding: EdgeInsets.all(16),
+        child: Row(
+          children: [
+            Icon(Icons.countertops, color: Colors.orange),
+            SizedBox(width: 16),
+            Text(
+              "تعداد دفعات ویزیت: ${storeDetails['visitCount'] ?? '0'} بار",
+              style: TextStyle(fontSize: 16),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -123,7 +193,7 @@ class StoreProfilePage extends StatelessWidget {
               child: DataTable(
                 headingRowColor: MaterialStateProperty.all(Colors.grey.shade300), // Gray background for the header row
                 columns: const [
-                  DataColumn(label: Text('ردف')),
+                  DataColumn(label: Text('ردیف')),
                   DataColumn(label: Text('وییزیتور')),
                   DataColumn(label: Text('مدت ویزیت')),
                   DataColumn(label: Text('تاریخ')),
