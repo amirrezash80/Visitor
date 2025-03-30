@@ -34,7 +34,7 @@ class VisitorProfilePage extends StatelessWidget {
               SizedBox(height: screenHeight * 0.02),
 
               // **قسمت سوم: نمودار فعالیت ویزیتور**
-              _buildVisitHeatmap(),
+              // _buildVisitHeatmap(),
             ],
           ),
         ),
@@ -59,9 +59,7 @@ class VisitorProfilePage extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 30,
-                    backgroundImage: NetworkImage(
-                      visitorDetails['avatar'] ?? 'default_avatar_url',
-                    ),
+                    backgroundImage: AssetImage('assets/profile_placeholder.png')
                   ),
                   SizedBox(height: 16),
                   Text(
@@ -198,8 +196,9 @@ class VisitorProfilePage extends StatelessWidget {
             ),
             SizedBox(height: 10),
             // Sample Visit Time Chart or Heatmap (example chart)
-            Container(height: 200, child: _buildVisitHeatmapChart()),
-            Container(height: 200, child: _buildVisitHeatmap()),
+            Container(height: 250, child: _buildVisitHeatmapChart()),
+            SizedBox(height: 15),
+            Container(height: 250, child: _buildVisitHeatmap()),
           ],
         ),
       ),
@@ -212,11 +211,12 @@ class VisitorProfilePage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "میزان فعالیت ماهیانه بر حسب تعداد",
+          "میزان فعالیت ویزیتور",
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 10),
-        Expanded(
+        Container(
+          height: 200,
           child: BarChart(
             BarChartData(
               gridData: FlGridData(show: true),
@@ -257,8 +257,8 @@ class VisitorProfilePage extends StatelessWidget {
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 10),
-        Expanded(
-          // height: 200,
+        Container(
+          height: 200,
           child: RadarChart(
             RadarChartData(
               dataSets: [
